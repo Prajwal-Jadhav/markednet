@@ -79,8 +79,21 @@ namespace MarkedNet
                     }
                 }
 
+                // Handles lexing of inline as well as block mathjax delimiters ($ and $$ resp.)
+                if ((cap = this.rules.MathJaxBlock.Exec(src)).Any() || (cap = this.rules.MathJaxInline.Exec(src)).Any())
+                {
+                    src = src.Substring(cap[0].Length);
+                    tokens.Add(new Token
+                    {
+                        Type = "mathjax",
+                        Text = cap[0]
+                    });
+
+                    continue;
+                }
+
                 // code
-                if ((cap = this.rules.Сode.Exec(src)).Any())
+                if ((cap = this.rules.Code.Exec(src)).Any())
                 {
                     src = src.Substring(cap[0].Length);
                     var capStr = Regex.Replace(cap[0], @"^ {4}", "", RegexOptions.Multiline);
