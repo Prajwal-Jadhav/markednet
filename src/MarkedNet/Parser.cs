@@ -89,6 +89,10 @@ namespace MarkedNet
         {
             switch (this.token.Type)
             {
+                case "mathjax":
+                    {
+                        return _options.Renderer.MathJax(this.token.Text);
+                    }
                 case "space":
                     {
                         return String.Empty;
