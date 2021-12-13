@@ -14,6 +14,8 @@ namespace MarkedNet
     {
         #region Fields
 
+        private static readonly Regex mathjaxblock = new Regex(@"^(\$\$[^$]*\$\$)");
+        private static readonly Regex mathjaxInline = new Regex(@"^(\$[^$]*\$)");
         private static readonly Regex newline = new Regex(@"^\n+");
         private static readonly Regex code = new Regex(@"^( {4}[^\n]+\n*)+");
         private static readonly Regex fences = new Regex(""); // noop
@@ -35,8 +37,10 @@ namespace MarkedNet
 
         #region Properties
 
+        public virtual Regex MathJaxBlock { get { return mathjaxblock; } }
+        public virtual Regex MathJaxInline { get { return mathjaxInline; } }
         public virtual Regex Newline { get { return newline; } }
-        public virtual Regex Сode { get { return code; } }
+        public virtual Regex Code { get { return code; } }
         public virtual Regex Fences { get { return fences; } } // noop
         public virtual Regex Hr { get { return hr; } }
         public virtual Regex Heading { get { return heading; } }
