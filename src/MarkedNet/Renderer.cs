@@ -32,6 +32,11 @@ namespace MarkedNet
 
         #region Block Level Renderer
 
+        public virtual string MathJax(string mathjax)
+        {
+            return mathjax;
+        }
+
         public virtual string Code(string code, string lang, bool escaped)
         {
             var transformedCode = code;

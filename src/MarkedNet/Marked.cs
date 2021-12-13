@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 
 
+// (\$ )((?:\\[^$]|[^$\n])*)( ?\$)  Saved pattern for latex
+
+
 namespace MarkedNet
 {
     public class Marked
