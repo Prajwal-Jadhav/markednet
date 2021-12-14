@@ -58,6 +58,47 @@ namespace MarkedNet.Tests
             Assert.AreEqual(expected, actual);
         }
 
+        [TestCase("$ this $", "$ this $")]
+        [TestCase("$$ this $$", "$$ this $$")]
+        public void Parse_LonelyMathjaxTags(string source, string expected)
+        {
+            // action
+            var actual = _marked.Parse(source);
+
+            // assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(@"$ \int_x^y $", @"$ \int_x^y $")]
+        public void Parse_DashInMathJax(string source, string expected)
+        {
+            // action
+            var actual = _marked.Parse(source);
+
+            // assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(@"$ \epsilon < 0; but \delta > 5 $", @"$ \epsilon < 0; but \delta > 5 $")]
+        public void Parse_EqualToGreaterThanSymbolsInMathJax(string source, string expected)
+        {
+            // action
+            var actual = _marked.Parse(source);
+
+            // assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(@"This is a paragraph $ \epsilon < 0; but \delta > 5 $ This is another one.", @"<p>This is a paragraph</p>$ \epsilon < 0; but \delta > 5 $<p>This is another one</p>")]
+        public void Parse_MathJaxInParagraph(string source, string expected)
+        {
+            // action
+            var actual = _marked.Parse(source);
+
+            // assert
+            Assert.AreEqual(expected, actual);
+        }
+
         [Test]
         public void Parse_MarkdownTableWithMissingAlign_HtmlText()
         {
