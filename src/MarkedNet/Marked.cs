@@ -35,8 +35,15 @@ namespace MarkedNet
                 return src;
             }
 
+            var mathJax = new Mathjax();
+
+            src = mathJax.RemoveMath(src);
+
             var tokens = Lexer.Lex(src, Options);
             var result = Parser.Parse(tokens, Options);
+
+            result = mathJax.ReplaceMath(result);
+
             return result;
         }
     }
